@@ -34,4 +34,22 @@ RSpec.describe "Employees API", type: :request do
     end
   end
 
+  describe "GET /employees/:id" do
+    it "returns the employee" do
+      employee = Employee.create!(
+        full_name: "John Doe",
+        job_title: "Developer",
+        country: "India",
+        salary: 50000
+      )
+
+      get "/employees/#{employee.id}"
+
+      expect(response).to have_http_status(:ok)
+
+      json = JSON.parse(response.body)
+      expect(json["id"]).to eq(employee.id)
+      expect(json["full_name"]).to eq("John Doe")
+    end
+  end
 end
