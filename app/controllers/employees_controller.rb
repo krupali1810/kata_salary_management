@@ -1,4 +1,6 @@
 class EmployeesController < ApplicationController
+	before_action :set_employee, only: [:show]
+
 	def create
     employee = Employee.new(employee_params)
 
@@ -15,12 +17,15 @@ class EmployeesController < ApplicationController
 	end
 
 	def show
-	  employee = Employee.find(params[:id])
-	  render json: employee, status: :ok
+	  render json: @employee, status: :ok
 	end
 
 
   private
+
+  def set_employee
+    @employee = Employee.find(params[:id])
+  end
 
   def employee_params
     params.require(:employee).permit(:full_name, :job_title, :country, :salary)
