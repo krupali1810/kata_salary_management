@@ -78,7 +78,7 @@ RSpec.describe "Salary Breakdown API", type: :request do
         expect(response).to have_http_status(:not_found)
 
         json = JSON.parse(response.body)
-        expect(json["error"]).to eq("Employee not found")
+        expect(json["error"]).to eq("Record not found")
       end
     end
   end
