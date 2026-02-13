@@ -70,6 +70,15 @@ RSpec.describe "Employees API", type: :request do
   end
 
   describe "DELETE /employees/:id" do
+    let!(:employee) do
+      Employee.create!(
+        full_name: "John Doe",
+        job_title: "Developer",
+        country: "India",
+        salary: 50000
+      )
+    end
+    
     it "deletes the employee" do
       expect {
         delete "/employees/#{employee.id}"
