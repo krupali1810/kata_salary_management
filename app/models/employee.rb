@@ -3,4 +3,6 @@ class Employee < ApplicationRecord
 	validates :job_title, presence: true
 	validates :country, presence: true
 	validates :salary, presence: true
+	validates :salary, presence: true,
+                   numericality: { greater_than: 0 }
 end
