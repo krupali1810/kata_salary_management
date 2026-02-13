@@ -1,10 +1,17 @@
 class SalaryCalculator
+  DEDUCTION_RATES = {
+    "India" => 0.10,
+    "United States" => 0.12
+  }.freeze
+
   def initialize(employee)
     @employee = employee
   end
 
   def call
-    deduction = @employee.salary * 0.10
+    rate = DEDUCTION_RATES.fetch(@employee.country, 0.0)
+
+    deduction = @employee.salary * rate
     net_salary = @employee.salary - deduction
 
     {
