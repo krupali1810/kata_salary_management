@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-	before_action :set_employee, only: [:show]
+	before_action :set_employee, only: [:show, :update]
 
 	def create
     employee = Employee.new(employee_params)
@@ -20,6 +20,13 @@ class EmployeesController < ApplicationController
 	  render json: @employee, status: :ok
 	end
 
+	def update
+	  if @employee.update(employee_params)
+	    render json: @employee, status: :ok
+	  else
+	    render json: { errors: @employee.errors.full_messages }, status: :unprocessable_entity
+	  end
+	end
 
   private
 
