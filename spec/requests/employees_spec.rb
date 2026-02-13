@@ -68,4 +68,15 @@ RSpec.describe "Employees API", type: :request do
       expect(employee.job_title).to eq("Senior Developer")
     end
   end
+
+  describe "DELETE /employees/:id" do
+    it "deletes the employee" do
+      expect {
+        delete "/employees/#{employee.id}"
+      }.to change(Employee, :count).by(-1)
+
+      expect(response).to have_http_status(:no_content)
+    end
+  end
+
 end
