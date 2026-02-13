@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "Employees API", type: :request do
+
+  let(:employee) do
+    Employee.create!(
+      full_name: "John Doe",
+      job_title: "Developer",
+      country: "India",
+      salary: 50000
+    )
+  end
+
   describe "POST /employees" do
     it "creates a new employee" do
       expect {
@@ -36,13 +46,6 @@ RSpec.describe "Employees API", type: :request do
 
   describe "GET /employees/:id" do
     it "returns the employee" do
-      employee = Employee.create!(
-        full_name: "John Doe",
-        job_title: "Developer",
-        country: "India",
-        salary: 50000
-      )
-
       get "/employees/#{employee.id}"
 
       expect(response).to have_http_status(:ok)
@@ -55,13 +58,6 @@ RSpec.describe "Employees API", type: :request do
 
   describe "PATCH /employees/:id" do
     it "updates the employee" do
-      employee = Employee.create!(
-        full_name: "John Doe",
-        job_title: "Developer",
-        country: "India",
-        salary: 50000
-      )
-
       patch "/employees/#{employee.id}", params: {
         employee: { job_title: "Senior Developer" }
       }
