@@ -26,4 +26,15 @@ RSpec.describe Employee, type: :model do
 	  expect(employee).not_to be_valid
 	end
 
+	it "is invalid without a salary" do
+	  employee = Employee.new(
+	    full_name: "John Doe",
+	    job_title: "Developer",
+	    country: "India"
+	  )
+
+	  expect(employee).not_to be_valid
+	end
+
+
 end
