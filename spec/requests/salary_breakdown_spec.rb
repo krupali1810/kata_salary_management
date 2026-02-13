@@ -24,5 +24,28 @@ RSpec.describe "Salary Breakdown API", type: :request do
         expect(json["net_salary"]).to eq(45000.0)
       end
     end
+
+    context "when employee is from United States" do
+      let!(:employee) do
+        Employee.create!(
+          full_name: "Jane Smith",
+          job_title: "Engineer",
+          country: "United States",
+          salary: 50000
+        )
+      end
+
+      it "applies 12% deduction" do
+        get "/employees/#{employee.id}/salary_breakdown"
+
+        expect(response).to have_http_status(:ok)
+
+        json = JSON.parse(response.body)
+
+        expect(json["gross_salary"]).to eq(50000.0)
+        expect(json["deduction"]).to eq(6000.0)
+        expect(json["net_salary"]).to eq(44000.0)
+      end
+    end
   end
 end
