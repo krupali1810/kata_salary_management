@@ -71,5 +71,15 @@ RSpec.describe "Salary Breakdown API", type: :request do
       end
     end
 
+    context "when employee does not exist" do
+      it "returns 404 not found" do
+        get "/employees/999999/salary_breakdown"
+
+        expect(response).to have_http_status(:not_found)
+
+        json = JSON.parse(response.body)
+        expect(json["error"]).to eq("Employee not found")
+      end
+    end
   end
 end
