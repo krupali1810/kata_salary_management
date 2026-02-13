@@ -33,6 +33,18 @@ class EmployeesController < ApplicationController
 	  head :no_content
 	end
 
+	def salary_breakdown
+	  employee = Employee.find(params[:id])
+
+	  deduction = employee.salary * 0.10
+	  net_salary = employee.salary - deduction
+
+	  render json: {
+	    gross_salary: employee.salary.to_f,
+	    deduction: deduction.to_f,
+	    net_salary: net_salary.to_f
+	  }, status: :ok
+	end
 
   private
 

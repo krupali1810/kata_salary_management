@@ -7,5 +7,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :employees, only: [:create, :index, :show, :update, :destroy]
+  resources :employees, only: [:create, :index, :show, :update, :destroy] do
+  	member do
+    	get :salary_breakdown
+  	end
+  end
 end
