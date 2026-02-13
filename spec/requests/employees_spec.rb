@@ -52,4 +52,24 @@ RSpec.describe "Employees API", type: :request do
       expect(json["full_name"]).to eq("John Doe")
     end
   end
+
+  describe "PATCH /employees/:id" do
+    it "updates the employee" do
+      employee = Employee.create!(
+        full_name: "John Doe",
+        job_title: "Developer",
+        country: "India",
+        salary: 50000
+      )
+
+      patch "/employees/#{employee.id}", params: {
+        employee: { job_title: "Senior Developer" }
+      }
+
+      expect(response).to have_http_status(:ok)
+
+      employee.reload
+      expect(employee.job_title).to eq("Senior Developer")
+    end
+  end
 end
