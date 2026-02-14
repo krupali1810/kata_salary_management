@@ -12,4 +12,6 @@ Rails.application.routes.draw do
     	get :salary_breakdown
   	end
   end
+
+  get "/salary_metrics", to: "salary_metrics#index"
 end
