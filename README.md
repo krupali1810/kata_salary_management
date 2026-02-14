@@ -1,24 +1,106 @@
-# README
+# Salary Management API (Incubyte Kata)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails API-only application to manage employees and provide salary-related calculations and metrics, built using a **strict TDD approach**.
 
-Things you may want to cover:
+---
 
-* Ruby version
+## 🛠 Tech Stack
 
-* System dependencies
+- Ruby 3.x  
+- Rails 7 (API-only)  
+- SQLite  
+- RSpec  
 
-* Configuration
+---
 
-* Database creation
+## 🚀 Setup Instructions
 
-* Database initialization
+```bash
+bundle install
+rails db:create db:migrate
+bundle exec rspec
+```
 
-* How to run the test suite
+---
 
-* Services (job queues, cache servers, search engines, etc.)
+## 📌 API Endpoints
 
-* Deployment instructions
+### 👤 Employee CRUD
 
-* ...
+- `POST /employees` – Create employee  
+- `GET /employees` – List employees  
+- `GET /employees/:id` – Show employee  
+- `PATCH /employees/:id` – Update employee  
+- `DELETE /employees/:id` – Delete employee  
+
+---
+
+### 💰 Salary Breakdown
+
+**Endpoint**
+```
+GET /employees/:id/salary_breakdown
+```
+
+**Rules**
+- India → 10% deduction  
+- United States → 12% deduction  
+- Other countries → No deduction  
+
+**Response**
+```json
+{
+  "gross_salary": 50000.0,
+  "deduction": 5000.0,
+  "net_salary": 45000.0
+}
+```
+
+---
+
+### 📊 Salary Metrics
+
+**By Country**
+```
+GET /salary_metrics?country=India
+```
+Returns min, max, and average salary.
+
+**By Job Title**
+```
+GET /salary_metrics?job_title=Developer
+```
+Returns average salary.
+
+---
+
+## 🧪 Testing & TDD
+
+- Strict **Red → Green → Refactor** workflow
+- Request specs for APIs
+- Model specs for validations
+- Commit history reflects TDD evolution
+
+---
+
+## 🧱 Architecture Decisions
+
+- Thin controllers
+- Business logic extracted into service objects:
+  - `SalaryCalculator`
+  - `SalaryMetrics`
+- Reusable ActiveRecord scopes for filtering
+- Centralized error handling for `RecordNotFound`
+
+---
+
+## 🤖 AI Usage Disclosure
+
+AI tools (ChatGPT) were used to:
+- Scaffold test cases
+- Validate TDD workflow
+- Review architecture decisions
+
+All logic, structure, and final decisions were reviewed and implemented manually.
+
+---
