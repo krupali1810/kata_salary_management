@@ -9,6 +9,13 @@ class SalaryMetricsController < ApplicationController
         max_salary: employees.maximum(:salary).to_f,
         average_salary: employees.average(:salary).to_f
       }, status: :ok
+    elsif params[:job_title]
+      employees = Employee.where(job_title: params[:job_title])
+
+      render json: {
+        job_title: params[:job_title],
+        average_salary: employees.average(:salary).to_f
+      }, status: :ok
     else
       render json: { error: "Invalid parameters" }, status: :bad_request
     end
